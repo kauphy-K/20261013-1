@@ -15,9 +15,27 @@ function setup(){
 
   // ここからが本番
   fill(0);
-  const dx = width / scores.length;
-  let px, py; // 線を引くために一つ前の点を覚えておく変数
-  for(let i = 0; i < scores.length; i++){
-    // BLANK[1]
+const dx = width / scores.length;
+let px, py; // 一つ前の点を覚えておく変数
+
+for (let i = 0; i < scores.length; i++) {
+ 
+  const x = i * dx + dx / 2;
+  const y = height - (height * scores[i]) / 100;
+
+ 
+  if (i > 0) {
+    stroke(0);
+    line(px, py, x, y);
   }
+
+  
+  fill(0);
+  ellipse(x, y, 10, 10);
+
+  
+  px = x;
+  py = y;
+}
+  
 }

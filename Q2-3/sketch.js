@@ -1,23 +1,16 @@
 // ギリシャ国旗（ほかの国旗に挑戦してもOK）
 function setup() {
-  createCanvas(270, 180);
+  createCanvas(360, 180);
   noStroke();
-  background(255);
+  background(45, 41, 38);
 
-  const d = height / 9; // 縞1本の太さ
-  const blue = color(0, 51, 160);
+ fill(0, 119, 73); 
+ triangle(0, 0, 360, 0, 180, 90);
+ triangle(0, 180, 360, 180, 180, 90);
 
-  // 縞を描く
-  for(let i = 0; i < 9; i++){
-    // BLANK[1] ヒント：縞の色を交互に変えるには2で割った余りを使おう
-    rect(0, i * d, width, d);
-  }
-
-  // 十字を描く
-  const size = d * 5;
-  fill(blue);
-  rect(0, 0, size, size);
-  fill(255);
-  rect(d * 2, 0, d, size);
-  // BLANK[2] 十字を完成させよう
+strokeWeight(30); 
+stroke(255, 184, 28);
+line(0, 0, 360, 180);
+line(360, 0, -360, 360);
+  
 }
