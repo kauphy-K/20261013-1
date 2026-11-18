@@ -35,6 +35,30 @@ let hard = false; // 難易度を管理する変数
 let k = 0; // 難易度をランダムに指定するための変数
 let syuruiransuu = [0, 1]; // 難易度をランダムに指定するための配列
 
+function nextQuestion() {
+  i = random(mojirannsuu);
+  currentWord = mojiimi[i];
+  j = random(irorannsuu);
+  currentColor = mojicolor[j];
+  score++;
+  if (hard) {
+    k = random(syuruiransuu);
+  }
+}
+
+function Star() {
+  let starCount = min(floor(score / 6), 5);
+
+  fill(255, 200, 0); 
+  textSize(50);
+  textAlign(CENTER, CENTER);
+
+  for (let s = 0; s < starCount; s++) {
+    
+    let x = windowWidth / 2 - 120 + s * 60;
+    text("★", x, windowHeight / 6);
+  }
+}
 
 
 function draw(){
@@ -148,6 +172,9 @@ function draw(){
      text("文字の", windowWidth/2 - textWidth("意味")*3/2, windowHeight*4/7 );
      textAlign(LEFT, CENTER);
      text("を答えろ", windowWidth/2 + textWidth("意味")*3/2, windowHeight*4/7 );}
+    
+    if (millis() - startTime > timeLimit) {
+   scene = 2;} // シーン2に移動
     }
 
   
@@ -200,7 +227,7 @@ if (scene === 2) {//ゲーム終了画面シーン2
     text("✔", windowWidth*1/2 , windowHeight*51/60 + windowHeight/20 + windowWidth*1/30);
   }
   
-
+ Star();
   
 }
 }
@@ -255,14 +282,7 @@ function mousePressed() {
       mouseY < RbtnY + RbtnH
     ) {
       if (j === 0) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -290,14 +310,7 @@ function mousePressed() {
       mouseY < BbtnY + BbtnH 
     )
      if (j === 1) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -324,14 +337,7 @@ function mousePressed() {
       mouseY < GbtnY + GbtnH
     ) {
       if (j === 2) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -358,14 +364,7 @@ function mousePressed() {
       mouseY < YbtnY + YbtnH
     ) {
       if (j === 3) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -398,14 +397,7 @@ function mousePressed() {
       mouseY < RbtnY + RbtnH
     ) {
       if (i === 0) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -433,14 +425,7 @@ function mousePressed() {
       mouseY < BbtnY + BbtnH 
     )
      if (i === 1) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -467,14 +452,7 @@ function mousePressed() {
       mouseY < GbtnY + GbtnH
     ) {
       if (i === 2) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -501,14 +479,7 @@ function mousePressed() {
       mouseY < YbtnY + YbtnH
     ) {
       if (i === 3) {
-      i = random(mojirannsuu); // ランダムなインデックスを生成
-      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
-      j = random(irorannsuu); // ランダムなインデックスを生成
-      currentColor = mojicolor[j]; // ランダムに色を選ぶ
-      score++; // スコアを1増やす
-      if (hard) {
-        k = random(syuruiransuu); // 難易度をランダムに指定
-      }
+      nextQuestion()
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -524,8 +495,7 @@ function mousePressed() {
   
   
 
-   if (millis() - startTime > timeLimit) {
-   scene = 2;} // シーン2に移動
+   
 
   }
 
