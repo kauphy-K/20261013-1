@@ -46,19 +46,7 @@ function nextQuestion() {
   }
 }
 
-function Star() {
-  let starCount = min(floor(score / 6), 5);
 
-  fill(255, 200, 0); 
-  textSize(50);
-  textAlign(CENTER, CENTER);
-
-  for (let s = 0; s < starCount; s++) {
-    
-    let x = windowWidth / 2 - 120 + s * 60;
-    text("★", x, windowHeight / 6);
-  }
-}
 
 
 function draw(){
@@ -227,7 +215,17 @@ if (scene === 2) {//ゲーム終了画面シーン2
     text("✔", windowWidth*1/2 , windowHeight*51/60 + windowHeight/20 + windowWidth*1/30);
   }
   
- Star();
+ let starCount = min(floor(score / 6), 5);
+
+  fill(255, 200, 0); 
+  textSize(50);
+  textAlign(CENTER, CENTER);
+
+  for (let s = 0; s < starCount; s++) {
+    
+    let x = windowWidth / 2 - 120 + s * 60;
+    text("★", x, windowHeight / 6);
+  }
   
 }
 }
