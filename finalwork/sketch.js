@@ -235,7 +235,7 @@ function mousePressed() {
  
   
   if (scene === 1) {
-   if (k === 0) {
+   if (k === 0) {//文字の色を答えるとき
     if (isLocked) {
       return;
     }
