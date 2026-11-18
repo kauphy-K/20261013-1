@@ -31,6 +31,11 @@ let missCount = 0; // ミスの回数を管理する変数
 let timeLimit = 20000; // 制限時間（秒）
 let startTime;
 
+let hard = false; // 難易度を管理する変数
+let k = 0; // 難易度をランダムに指定するための変数
+let syuruiransuu = [0, 1]; // 難易度をランダムに指定するための配列
+
+
 
 function draw(){
   background(r, g, b);
@@ -68,10 +73,14 @@ function draw(){
     fill(0);
     textSize(20);
     textAlign(LEFT, CENTER);
-    text("例えば", windowWidth/4, windowHeight/2 + windowHeight/4);
     text("なら", windowWidth/4 + windowWidth*2/15, windowHeight/2 + windowHeight/4);
     text("のボタンをクリック", windowWidth/4 + windowWidth*2/15 + windowWidth*10.5/80 + 30, windowHeight/2 + windowHeight/4);
     
+    fill(0);
+    textSize(20);
+    textAlign(RIGHT, CENTER);
+     text("例えば",  windowWidth/4 + windowWidth*2/15 - textWidth("緑緑"), windowHeight/2 + windowHeight/4);
+
 
     fill("red");
     textSize(35);
@@ -116,8 +125,35 @@ function draw(){
     textAlign(LEFT, TOP);
     text("SCORE: " + score, 10, 10);
     text("MISSES: " + missCount, 10, 50);
+  
+    if (k === 0) {
+     fill(0)//問題の種類を表示する
+     textSize(40);
+     textAlign(CENTER, CENTER);
+     text("色" , windowWidth/2, windowHeight*4/7);
+     fill(0);//問題の説明
+     textSize(20);
+     textAlign(RIGHT, CENTER);
+     text("文字の", windowWidth/2 - textWidth("色")*3/2, windowHeight*4/7 );
+     textAlign(LEFT, CENTER);
+     text("を答えろ", windowWidth/2 + textWidth("色")*3/2, windowHeight*4/7 );}
+    else {
+     fill(0)//問題の種類を表示する
+     textSize(40);
+     textAlign(CENTER, CENTER);
+     text("意味" , windowWidth/2, windowHeight*4/7);
+     fill(0);//問題の説明
+     textSize(20);
+     textAlign(RIGHT, CENTER);
+     text("文字の", windowWidth/2 - textWidth("意味")*3/2, windowHeight*4/7 );
+     textAlign(LEFT, CENTER);
+     text("を答えろ", windowWidth/2 + textWidth("意味")*3/2, windowHeight*4/7 );}
+    }
 
-}
+  
+
+    
+
 
 if (scene === 2) {//ゲーム終了画面シーン2
   r = 255;
@@ -149,6 +185,22 @@ if (scene === 2) {//ゲーム終了画面シーン2
     textAlign(CENTER, CENTER);
     text("Congratulations!", windowWidth*1/2 , windowHeight*25/60 + windowHeight/20);
   }
+
+  fill(255)
+  rect(windowWidth*1/2 - windowWidth*1/60, windowHeight*51/60 + windowHeight/20, windowWidth*1/30, windowWidth*1/30);
+  
+  fill(0, 255, 0);
+  textSize(windowWidth*1/30);
+  textAlign(CENTER, BOTTOM);
+  text("HARD MODE", windowWidth*1/2 , windowHeight*53/60 );
+  if (hard) {
+    fill(0, 255, 0);
+    textSize(windowWidth*1/30);
+    textAlign(CENTER, BOTTOM);
+    text("✔", windowWidth*1/2 , windowHeight*51/60 + windowHeight/20 + windowWidth*1/30);
+  }
+  
+
   
 }
 }
@@ -180,8 +232,10 @@ function mousePressed() {
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
     }
   }
-
-   if (scene === 1) {
+ 
+  
+  if (scene === 1) {
+   if (k === 0) {
     if (isLocked) {
       return;
     }
@@ -206,6 +260,9 @@ function mousePressed() {
       j = random(irorannsuu); // ランダムなインデックスを生成
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
       score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -238,6 +295,9 @@ function mousePressed() {
       j = random(irorannsuu); // ランダムなインデックスを生成
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
       score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -269,6 +329,9 @@ function mousePressed() {
       j = random(irorannsuu); // ランダムなインデックスを生成
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
       score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -300,6 +363,9 @@ function mousePressed() {
       j = random(irorannsuu); // ランダムなインデックスを生成
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
       score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
      } else {
       missCount++; // ミスの回数を1増やす
       isLocked = true;
@@ -310,10 +376,160 @@ function mousePressed() {
 
     }
     }
+  
+   }
+    else{
+      if (isLocked) {
+      return;
+    }
+    
+    //赤と解答するボタン 左上
+    let RbtnX = windowWidth*20/100;
+    let RbtnY = windowHeight*2/3;
+    let RbtnW = windowWidth*28/100;
+    let RbtnH = windowHeight/10;
+
+    
+    // マウスカーソルが四角形の「左右」と「上下」の範囲内にあるかチェック
+    if (
+      mouseX > RbtnX &&
+      mouseX < RbtnX + RbtnW &&
+      mouseY > RbtnY &&
+      mouseY < RbtnY + RbtnH
+    ) {
+      if (i === 0) {
+      i = random(mojirannsuu); // ランダムなインデックスを生成
+      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
+      j = random(irorannsuu); // ランダムなインデックスを生成
+      currentColor = mojicolor[j]; // ランダムに色を選ぶ
+      score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
+     } else {
+      missCount++; // ミスの回数を1増やす
+      isLocked = true;
+     setTimeout(() => {
+     isLocked = false;
+     }, 1000);
+     
+
+    }
+    }
+
+    //青と解答するボタン　右上
+    let BbtnX = windowWidth*20/100 + windowWidth*32/100;
+    let BbtnY = windowHeight*2/3;
+    let BbtnW = windowWidth*28/100;
+    let BbtnH = windowHeight/10;
+
+    
+
+    // マウスカーソルが四角形の「左右」と「上下」の範囲内にあるかチェック
+    if (
+      mouseX > BbtnX &&
+      mouseX < BbtnX + BbtnW &&
+      mouseY > BbtnY &&
+      mouseY < BbtnY + BbtnH 
+    )
+     if (i === 1) {
+      i = random(mojirannsuu); // ランダムなインデックスを生成
+      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
+      j = random(irorannsuu); // ランダムなインデックスを生成
+      currentColor = mojicolor[j]; // ランダムに色を選ぶ
+      score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
+     } else {
+      missCount++; // ミスの回数を1増やす
+      isLocked = true;
+     setTimeout(() => {
+     isLocked = false;
+     }, 1000);
+     
+
+    }
+
+    //緑と解答するボタン　左下
+    let GbtnX = windowWidth*20/100;
+    let GbtnY = windowHeight*24/30;
+    let GbtnW = windowWidth*28/100;
+    let GbtnH = windowHeight/10;
+
+    
+
+    // マウスカーソルが四角形の「左右」と「上下」の範囲内にあるかチェック
+    if (
+      mouseX > GbtnX &&
+      mouseX < GbtnX + GbtnW &&
+      mouseY > GbtnY &&
+      mouseY < GbtnY + GbtnH
+    ) {
+      if (i === 2) {
+      i = random(mojirannsuu); // ランダムなインデックスを生成
+      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
+      j = random(irorannsuu); // ランダムなインデックスを生成
+      currentColor = mojicolor[j]; // ランダムに色を選ぶ
+      score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
+     } else {
+      missCount++; // ミスの回数を1増やす
+      isLocked = true;
+     setTimeout(() => {
+     isLocked = false;
+     }, 1000);
+     
+
+    }
+    }
+
+    //黄と解答するボタン　右下
+    let YbtnX = windowWidth*20/100 + windowWidth*32/100;
+    let YbtnY = windowHeight*24/30;
+    let YbtnW = windowWidth*28/100;
+    let YbtnH = windowHeight/10;    
+
+
+    // マウスカーソルが四角形の「左右」と「上下」の範囲内にあるかチェック
+    if (
+      mouseX > YbtnX &&
+      mouseX < YbtnX + YbtnW &&
+      mouseY > YbtnY &&
+      mouseY < YbtnY + YbtnH
+    ) {
+      if (i === 3) {
+      i = random(mojirannsuu); // ランダムなインデックスを生成
+      currentWord = mojiimi[i]; // ランダムに文字を選ぶ
+      j = random(irorannsuu); // ランダムなインデックスを生成
+      currentColor = mojicolor[j]; // ランダムに色を選ぶ
+      score++; // スコアを1増やす
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
+     } else {
+      missCount++; // ミスの回数を1増やす
+      isLocked = true;
+     setTimeout(() => {
+     isLocked = false;
+     }, 1000);
+     
+
+    }
+    }
+      
+    }
+  
+  
+
    if (millis() - startTime > timeLimit) {
    scene = 2;} // シーン2に移動
 
   }
+
+  
 
   if (scene === 2) {
     let btnX = windowWidth*2/3;
@@ -335,8 +551,30 @@ function mousePressed() {
       currentWord = mojiimi[i]; // ランダムに文字を選ぶ
       j = random(irorannsuu); // ランダムなインデックスを生成
       currentColor = mojicolor[j]; // ランダムに色を選ぶ
+      if (hard) {
+        k = random(syuruiransuu); // 難易度をランダムに指定
+      }
+      else {
+        k = 0; // 難易度をリセット
+      }
+    }
+
+
+    let hardBtnX = windowWidth*1/2 - windowWidth*1/60;
+    let hardBtnY = windowHeight*51/60 + windowHeight/20;
+    let hardBtnW = windowWidth*1/30;
+    let hardBtnH = windowWidth*1/30;
+
+    if (
+      mouseX > hardBtnX &&
+      mouseX < hardBtnX + hardBtnW &&
+      mouseY > hardBtnY &&
+      mouseY < hardBtnY + hardBtnH
+    ) {
+      hard = !hard; // 難易度を切り替える
   
   }
+
 }
 }
 
